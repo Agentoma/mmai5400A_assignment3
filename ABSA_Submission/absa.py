@@ -3,8 +3,7 @@ from setfit import AbsaModel
 
 # Load the fine-tuned model
 model = AbsaModel.from_pretrained(
-    "absa_model-aspect",
-    "absa_model-polarity",
+    "absa_model",
     spacy_model="en_core_web_sm",
 )
 

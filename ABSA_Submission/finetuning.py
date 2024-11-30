@@ -13,7 +13,6 @@ from transformers import EarlyStoppingCallback
 # Initialize the AbsaModel
 model = AbsaModel.from_pretrained(
     "sentence-transformers/all-MiniLM-L6-v2",
-    "sentence-transformers/all-mpnet-base-v2",
     spacy_model="en_core_web_sm",
 )
 
@@ -27,13 +26,14 @@ eval_dataset = dataset.select(range(128, 256))
 # Set up training arguments
 args = TrainingArguments(
     output_dir="models",
-    num_epochs=5,
-    use_amp=True,
-    batch_size=128,
-    eval_strategy="steps",
+    num_train_epochs=5,
+    per_device_train_batch_size=32,
+    per_device_eval_batch_size=32,
+    evaluation_strategy="steps",
     eval_steps=50,
     save_steps=50,
     load_best_model_at_end=True,
+    fp16=True
 )
 
 # Initialize and train the AbsaTrainer
